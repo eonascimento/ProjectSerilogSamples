@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="FlogDetail.cs" />
     <Compile Include="Flogger.cs" />
+    <Compile Include="PerfTracker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
