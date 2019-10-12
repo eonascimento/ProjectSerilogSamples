@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Flogging.core
 {
-    static class Flogger
+    public static class Flogger
     {
         private static readonly ILogger _perfLogger;
         private static readonly ILogger _usageLogger;
@@ -18,20 +18,22 @@ namespace Flogging.core
 
         static Flogger()
         {
+            var pathprefix = "C:\\Projetos\\Estudo\\ProjectSerilogSamples\\Logs\\";
+
             _perfLogger = new LoggerConfiguration()
-                .WriteTo.File(path: "C:\\Projetos\\Estudo\\SerilogSamples\\source\\perf.txt")
+                .WriteTo.File(path: $"{pathprefix}perf.txt")
                 .CreateLogger();
 
             _usageLogger = new LoggerConfiguration()
-                .WriteTo.File(path: "C:\\Projetos\\Estudo\\SerilogSamples\\source\\usage.txt")
+                .WriteTo.File(path: $"{pathprefix}usage.txt")
                 .CreateLogger();
 
             _errorLogger = new LoggerConfiguration()
-                .WriteTo.File(path: "C:\\Projetos\\Estudo\\SerilogSamples\\source\\error.txt")
+                .WriteTo.File(path: $"{pathprefix}error.txt")
                 .CreateLogger();
 
             _diagnosticLogger = new LoggerConfiguration()
-                .WriteTo.File(path: "C:\\Projetos\\Estudo\\SerilogSamples\\source\\diagnostic.txt")
+                .WriteTo.File(path: $"{pathprefix}diagnostic.txt")
                 .CreateLogger();
         }
 
