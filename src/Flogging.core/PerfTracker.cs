@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Flogging.core
+namespace Flogging.Core
 {
     public class PerfTracker
     {
