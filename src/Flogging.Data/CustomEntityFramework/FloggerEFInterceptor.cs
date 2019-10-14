@@ -10,34 +10,52 @@ namespace Flogging.Data.CustomEntityFramework
 {
     public class FloggerEFInterceptor : IDbCommandInterceptor
     {
+
+        private Exception WrapperEntityFrameworkException(DbCommand command, Exception ex)
+        {
+            var newException = new Exception("EntityFramework command failed", ex);
+            AddParamsException(command.Parameters, newException);
+            return newException;
+        }
+
+        private void AddParamsException(DbParameterCollection parameters, Exception newException)
+        {
+            foreach (DbParameter parameter in parameters)
+            {
+                newException.Data.Add(parameter.ParameterName, parameter.Value.ToString());
+            }
+        }
+
         public void NonQueryExecuted(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
-            throw new NotImplementedException();
+            if (interceptionContext.Exception != null)
+                interceptionContext.Exception = WrapperEntityFrameworkException(command, interceptionContext.Exception);
         }
 
         public void NonQueryExecuting(DbCommand command, DbCommandInterceptionContext<int> interceptionContext)
         {
-            throw new NotImplementedException();
+
         }
 
         public void ReaderExecuted(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
-            throw new NotImplementedException();
+
         }
 
         public void ReaderExecuting(DbCommand command, DbCommandInterceptionContext<DbDataReader> interceptionContext)
         {
-            throw new NotImplementedException();
+            if (interceptionContext.Exception != null)
+                interceptionContext.Exception = WrapperEntityFrameworkException(command, interceptionContext.Exception);
         }
 
         public void ScalarExecuted(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
-            throw new NotImplementedException();
+
         }
 
         public void ScalarExecuting(DbCommand command, DbCommandInterceptionContext<object> interceptionContext)
         {
-            throw new NotImplementedException();
+
         }
     }
 }
